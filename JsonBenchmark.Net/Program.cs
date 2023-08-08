@@ -11,14 +11,16 @@ using BenchmarkDotNet.Exporters.Csv;
 var benchmarks = new BenchmarkSwitcher(new[]
 {
     typeof(SimpleObjectSerializeBenchmark),
-    typeof(ComplexObjectSerializeBenchmark)
+    typeof(ComplexObjectSerializeBenchmark),
+    typeof(SimpleObjectDeserializeBenchmark),
+    typeof(ComplexObjectDeserializeBenchmark),
 });
 
 #if DEBUG
-//var test = new ComplexObjectSerializeBenchmark();
-//test.GlobalSetup();
-//var bytes = test.SpanJson_Bytes();
-//var json = Encoding.UTF8.GetString(bytes);
+var test = new ComplexObjectDeserializeBenchmark();
+test.GlobalSetup();
+
+var obj = test.SrcGen_String();
 
 Console.BackgroundColor = ConsoleColor.Yellow;
 Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -33,14 +35,14 @@ public class BenchmarkConfig : ManualConfig
     public BenchmarkConfig()
     {
         AddExporter(MarkdownExporter.GitHub)
-            .AddExporter(RPlotExporter.Default)
+            //.AddExporter(RPlotExporter.Default)
             .AddExporter(CsvMeasurementsExporter.Default)
         .AddDiagnoser(MemoryDiagnoser.Default)
         .AddColumn(RankColumn.Arabic);
 
         var job = Job.ShortRun
             .WithLaunchCount(1)
-            .WithWarmupCount(3)
+            .WithWarmupCount(2)
             .WithRuntime(CoreRuntime.Core70)
             .WithJit(Jit.RyuJit)
             .WithPlatform(Platform.X64);
