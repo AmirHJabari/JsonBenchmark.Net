@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using JsonBenchmark.Net.Models;
 using System.Text;
+using JsonBenchmark.Net.Services;
 
 namespace JsonBenchmark.Net.Benchmarks;
 
@@ -10,6 +11,13 @@ public class ComplexObjectSerializeBenchmark
     static ComplexClass obj;
     static Utf8Json.IJsonFormatterResolver jsonresolver = Utf8Json.Resolvers.StandardResolver.Default;
     static Encoding utf8 = Encoding.UTF8;
+
+    static NetJSON.NetJSONSettings njSettings = new()
+    {
+        DateFormat = NetJSON.NetJSONDateFormat.JsonNetISO,
+        UseEnumString = true,
+    };
+    static Jil.Options jilOptions = new(dateFormat: Jil.DateTimeFormat.ISO8601);
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -22,13 +30,13 @@ public class ComplexObjectSerializeBenchmark
     [Benchmark]
     public string Jil_String()
     {
-        return Jil.JSON.Serialize(obj);
+        return Jil.JSON.Serialize(obj, jilOptions);
     }
 
     [Benchmark]
     public string NetJSON_String()
     {
-        return NetJSON.NetJSON.Serialize(obj);
+        return NetJSON.NetJSON.Serialize(obj, njSettings);
     }
 
     [Benchmark]
@@ -50,6 +58,12 @@ public class ComplexObjectSerializeBenchmark
     }
 
     [Benchmark]
+    public string SrcGen_String()
+    {
+        return System.Text.Json.JsonSerializer.Serialize(obj, JsonSourceGen.Default.ComplexClass);
+    }
+
+    [Benchmark]
     public string Utf8Json_String()
     {
         return Utf8Json.JsonSerializer.ToJsonString(obj, jsonresolver);
@@ -62,13 +76,13 @@ public class ComplexObjectSerializeBenchmark
     [Benchmark]
     public byte[] Jil_Bytes()
     {
-        return utf8.GetBytes(Jil.JSON.Serialize(obj));
+        return utf8.GetBytes(Jil.JSON.Serialize(obj, jilOptions));
     }
 
     [Benchmark]
     public byte[] NetJSON_Bytes()
     {
-        return utf8.GetBytes(NetJSON.NetJSON.Serialize(obj));
+        return utf8.GetBytes(NetJSON.NetJSON.Serialize(obj, njSettings));
     }
 
     [Benchmark]
@@ -87,6 +101,12 @@ public class ComplexObjectSerializeBenchmark
     public byte[] SystemTextJson_Bytes()
     {
         return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj);
+    }
+
+    [Benchmark]
+    public byte[] SrcGen_Bytes()
+    {
+        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj, JsonSourceGen.Default.ComplexClass);
     }
 
     [Benchmark]

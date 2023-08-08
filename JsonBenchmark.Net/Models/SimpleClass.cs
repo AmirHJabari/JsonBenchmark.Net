@@ -4,6 +4,7 @@ namespace JsonBenchmark.Net.Models;
 
 public class SimpleClass
 {
+    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
     public DayOfWeek DayOfWeek { get; set; }
     public Guid Guid { get; set; }
     public sbyte Sbyte { get; set; }
@@ -57,7 +58,7 @@ public class SimpleClass
                 False = false,
                 True = true,
 
-                String = rand.String(255),
+                String = rand.String(),
                 Char = rand.Char(),
 
                 DateTime = DateTime.UtcNow,

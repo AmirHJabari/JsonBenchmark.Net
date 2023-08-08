@@ -1,27 +1,23 @@
-﻿using System.Text;
+﻿using Bogus;
+using System.Text;
 
 namespace JsonBenchmark.Net.Tools;
 
 public class Rand
 {
-    private readonly Random random;
+    readonly Random random;
+    readonly Faker faker;
+
     public Rand(int seed)
     {
-        random = new Random(seed);
+        random = new(seed);
+        faker = new();
     }
 
     public DayOfWeek DayOfWeek() => (DayOfWeek)random.Next(0, 6);
 
-    public string String(byte capacity)
-    {
-        var sb = new StringBuilder(capacity);
+    public string String() => faker.Name.FullName();
 
-        for (int i = 0; i < capacity; i++)
-        {
-            sb.Append(Char());
-        }
-        return sb.ToString();
-    }
     public char Char() => (char)random.Next(0, 65000);
     
     public sbyte Sbyte() => (sbyte)random.Next();
