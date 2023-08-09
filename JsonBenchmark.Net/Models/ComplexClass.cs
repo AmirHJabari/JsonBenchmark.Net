@@ -4,7 +4,6 @@ namespace JsonBenchmark.Net.Models;
 
 public class ComplexClass
 {
-    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
     public DayOfWeek DayOfWeek { get; set; }
     public DayOfWeek[] ArrDayOfWeek { get; set; }
 

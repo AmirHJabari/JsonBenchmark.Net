@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using JsonBenchmark.Net.Models;
-using JsonBenchmark.Net.Services;
 using System.Text;
 
 namespace JsonBenchmark.Net.Benchmarks;
@@ -50,12 +49,6 @@ public class SuperSimpleObjectSerializeBenchmark
     }
 
     [Benchmark]
-    public string SrcGen_String()
-    {
-        return System.Text.Json.JsonSerializer.Serialize(obj, JsonSourceGen.Default.SuperSimpleClass);
-    }
-
-    [Benchmark]
     public string Utf8Json_String()
     {
         return Utf8Json.JsonSerializer.ToJsonString(obj);
@@ -93,12 +86,6 @@ public class SuperSimpleObjectSerializeBenchmark
     public byte[] SystemTextJson_Bytes()
     {
         return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj);
-    }
-
-    [Benchmark]
-    public byte[] SrcGen_Bytes()
-    {
-        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj, JsonSourceGen.Default.SuperSimpleClass);
     }
 
     [Benchmark]

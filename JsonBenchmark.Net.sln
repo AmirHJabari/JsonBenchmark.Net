@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonBenchmark.Net", "JsonBenchmark.Net\JsonBenchmark.Net.csproj", "{F3E4E5F7-E3F1-4CD9-8A66-0023FC583907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonBenchmark.Net", "JsonBenchmark.Net\JsonBenchmark.Net.csproj", "{F3E4E5F7-E3F1-4CD9-8A66-0023FC583907}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

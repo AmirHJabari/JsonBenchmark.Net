@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using JsonBenchmark.Net.Models;
-using JsonBenchmark.Net.Services;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace JsonBenchmark.Net.Benchmarks;
 
@@ -17,7 +17,14 @@ public class SimpleObjectDeserializeBenchmark
         UseEnumString = true,
     };
     static Jil.Options jilOptions = new(dateFormat: Jil.DateTimeFormat.ISO8601);
-    
+    static System.Text.Json.JsonSerializerOptions stjOptions = new System.Text.Json.JsonSerializerOptions()
+    {
+        Converters =
+            {
+                new JsonStringEnumConverter()
+            }
+    };
+
     [GlobalSetup]
     public void GlobalSetup()
     {
@@ -55,13 +62,7 @@ public class SimpleObjectDeserializeBenchmark
     [Benchmark]
     public SimpleClass SystemTextJson_String()
     {
-        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(json);
-    }
-
-    [Benchmark]
-    public SimpleClass SrcGen_String()
-    {
-        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(json, JsonSourceGen.Default.SimpleClass);
+        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(json, stjOptions);
     }
 
     [Benchmark]
@@ -101,13 +102,7 @@ public class SimpleObjectDeserializeBenchmark
     [Benchmark]
     public SimpleClass SystemTextJson_Bytes()
     {
-        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(jsonBytes);
-    }
-
-    [Benchmark]
-    public SimpleClass SrcGen_Bytes()
-    {
-        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(jsonBytes, JsonSourceGen.Default.SimpleClass);
+        return System.Text.Json.JsonSerializer.Deserialize<SimpleClass>(jsonBytes, stjOptions);
     }
 
     [Benchmark]

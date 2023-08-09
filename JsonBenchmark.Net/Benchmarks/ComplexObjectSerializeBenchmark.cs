@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using JsonBenchmark.Net.Models;
 using System.Text;
-using JsonBenchmark.Net.Services;
+using System.Text.Json.Serialization;
 
 namespace JsonBenchmark.Net.Benchmarks;
 
@@ -17,6 +17,13 @@ public class ComplexObjectSerializeBenchmark
         UseEnumString = true,
     };
     static Jil.Options jilOptions = new(dateFormat: Jil.DateTimeFormat.ISO8601);
+    static System.Text.Json.JsonSerializerOptions stjOptions = new System.Text.Json.JsonSerializerOptions()
+    {
+        Converters =
+            {
+                new JsonStringEnumConverter()
+            }
+    };
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -53,13 +60,7 @@ public class ComplexObjectSerializeBenchmark
     [Benchmark]
     public string SystemTextJson_String()
     {
-        return System.Text.Json.JsonSerializer.Serialize(obj);
-    }
-
-    [Benchmark]
-    public string SrcGen_String()
-    {
-        return System.Text.Json.JsonSerializer.Serialize(obj, JsonSourceGen.Default.ComplexClass);
+        return System.Text.Json.JsonSerializer.Serialize(obj, stjOptions);
     }
 
     [Benchmark]
@@ -99,13 +100,7 @@ public class ComplexObjectSerializeBenchmark
     [Benchmark]
     public byte[] SystemTextJson_Bytes()
     {
-        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj);
-    }
-
-    [Benchmark]
-    public byte[] SrcGen_Bytes()
-    {
-        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj, JsonSourceGen.Default.ComplexClass);
+        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(obj, stjOptions);
     }
 
     [Benchmark]

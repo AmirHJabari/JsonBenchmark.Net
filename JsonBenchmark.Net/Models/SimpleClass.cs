@@ -4,7 +4,6 @@ namespace JsonBenchmark.Net.Models;
 
 public class SimpleClass
 {
-    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
     public DayOfWeek DayOfWeek { get; set; }
     public Guid Guid { get; set; }
     public sbyte Sbyte { get; set; }

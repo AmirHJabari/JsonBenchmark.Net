@@ -19,11 +19,6 @@ var benchmarks = new BenchmarkSwitcher(new[]
 });
 
 #if DEBUG
-var test = new ComplexObjectDeserializeBenchmark();
-test.GlobalSetup();
-
-var obj = test.SrcGen_String();
-
 Console.BackgroundColor = ConsoleColor.Yellow;
 Console.ForegroundColor = ConsoleColor.DarkRed;
 Console.WriteLine("Please put this benchmark in Release mode to run benchmarks.");

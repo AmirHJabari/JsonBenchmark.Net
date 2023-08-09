@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using JsonBenchmark.Net.Models;
-using JsonBenchmark.Net.Services;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -67,12 +66,6 @@ public class ComplexObjectDeserializeBenchmark
     }
 
     [Benchmark]
-    public ComplexClass SrcGen_String()
-    {
-        return System.Text.Json.JsonSerializer.Deserialize<ComplexClass>(json, JsonSourceGen.Default.ComplexClass);
-    }
-
-    [Benchmark]
     public ComplexClass Utf8Json_String()
     {
         return Utf8Json.JsonSerializer.Deserialize<ComplexClass>(json);
@@ -110,12 +103,6 @@ public class ComplexObjectDeserializeBenchmark
     public ComplexClass SystemTextJson_Bytes()
     {
         return System.Text.Json.JsonSerializer.Deserialize<ComplexClass>(jsonBytes, stjOptions);
-    }
-
-    [Benchmark]
-    public ComplexClass SrcGen_Bytes()
-    {
-        return System.Text.Json.JsonSerializer.Deserialize<ComplexClass>(jsonBytes, JsonSourceGen.Default.ComplexClass);
     }
 
     [Benchmark]
