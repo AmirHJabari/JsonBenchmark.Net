@@ -17,6 +17,19 @@ Definitely in different object types and different scenarios the result can vary
 
 <br/>
 
+Benchmark Environment:
+```
+BenchmarkDotNet v0.13.7, Windows 11 (10.0.22621.1992/22H2/2022Update/SunValley2)
+AMD Ryzen 7 5800H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 7.0.103
+  [Host]   : .NET 7.0.3 (7.0.323.6910), X64 RyuJIT AVX2
+  ShortRun : .NET 7.0.3 (7.0.323.6910), X64 RyuJIT AVX2
+
+Job=ShortRun  Jit=RyuJit  Platform=X64  
+Runtime=.NET 7.0  IterationCount=3  LaunchCount=1  
+WarmupCount=3
+```
+
 ## Super Simple object:
 
 object:
@@ -30,7 +43,7 @@ object:
 <br/>
 
 SERIALIZATION:
-
+```
 |                Method |      Mean |     Error |    StdDev | Ratio | RatioSD | Rank |   Gen0 |   Gen1 | Allocated | Alloc Ratio |
 |---------------------- |----------:|----------:|----------:|------:|--------:|-----:|-------:|-------:|----------:|------------:|
 |            Jil_String | 170.60 ns |  64.86 ns |  3.555 ns |  1.46 |    0.09 |    6 | 0.0648 |      - |     544 B |        8.50 |
@@ -45,11 +58,11 @@ SERIALIZATION:
 |        SpanJson_Bytes | 117.17 ns |  88.43 ns |  4.847 ns |  1.00 |    0.00 |    3 | 0.0076 |      - |      64 B |        1.00 |
 |  SystemTextJson_Bytes | 206.61 ns |  82.88 ns |  4.543 ns |  1.77 |    0.11 |    8 | 0.0086 |      - |      72 B |        1.12 |
 |        Utf8Json_Bytes |  89.94 ns | 213.25 ns | 11.689 ns |  0.77 |    0.12 |    1 | 0.0086 |      - |      72 B |        1.12 |
-
+```
 <br/>
 
 DESERIALIZATION:
-
+```
 |                Method |        Mean |      Error |    StdDev | Ratio | RatioSD | Rank |   Gen0 |   Gen1 | Allocated | Alloc Ratio |
 |---------------------- |------------:|-----------:|----------:|------:|--------:|-----:|-------:|-------:|----------:|------------:|
 |            Jil_String |   125.96 ns |  52.524 ns |  2.879 ns |  1.36 |    0.03 |    2 | 0.0210 |      - |     176 B |        2.00 |
@@ -64,7 +77,7 @@ DESERIALIZATION:
 |        SpanJson_Bytes |    92.71 ns |  10.329 ns |  0.566 ns |  1.00 |    0.00 |    1 | 0.0105 |      - |      88 B |        1.00 |
 |  SystemTextJson_Bytes |   274.26 ns | 404.983 ns | 22.198 ns |  2.96 |    0.25 |    9 | 0.0105 |      - |      88 B |        1.00 |
 |        Utf8Json_Bytes |   129.51 ns |  19.648 ns |  1.077 ns |  1.40 |    0.00 |    4 | 0.0095 |      - |      80 B |        0.91 |
-
+```
 <br/>
 
 ## Simple object:
@@ -94,7 +107,7 @@ object:
 ```
 
 SERIALIZATION:
-
+```
 |                Method |       Mean |     Error |   StdDev | Ratio | RatioSD | Rank |   Gen0 |   Gen1 | Allocated | Alloc Ratio |
 |---------------------- |-----------:|----------:|---------:|------:|--------:|-----:|-------:|-------:|----------:|------------:|
 |            Jil_String |   941.9 ns |  88.30 ns |  4.84 ns |  1.22 |    0.04 |    3 | 0.3452 | 0.0019 |    2888 B |        7.08 |
@@ -109,11 +122,11 @@ SERIALIZATION:
 |        SpanJson_Bytes |   769.6 ns | 407.25 ns | 22.32 ns |  1.00 |    0.00 |    1 | 0.0486 |      - |     408 B |        1.00 |
 |  SystemTextJson_Bytes | 1,432.3 ns |  77.61 ns |  4.25 ns |  1.86 |    0.05 |    9 | 0.0534 |      - |     448 B |        1.10 |
 |        Utf8Json_Bytes |   998.7 ns |  85.47 ns |  4.68 ns |  1.30 |    0.04 |    4 | 0.0687 |      - |     584 B |        1.43 |
-
+```
 <br/>
 
 DESERIALIZATION:
-
+```
 |                Method |       Mean |       Error |    StdDev | Ratio | RatioSD | Rank |   Gen0 | Allocated | Alloc Ratio |
 |---------------------- |-----------:|------------:|----------:|------:|--------:|-----:|-------:|----------:|------------:|
 |            Jil_String | 1,672.8 ns |   226.88 ns |  12.44 ns |  1.84 |    0.01 |    5 | 0.0648 |     544 B |        3.09 |
@@ -128,7 +141,7 @@ DESERIALIZATION:
 |        SpanJson_Bytes |   909.0 ns |    50.73 ns |   2.78 ns |  1.00 |    0.00 |    1 | 0.0210 |     176 B |        1.00 |
 |  SystemTextJson_Bytes | 1,936.0 ns | 2,170.74 ns | 118.99 ns |  2.13 |    0.13 |    7 | 0.0210 |     176 B |        1.00 |
 |        Utf8Json_Bytes | 1,504.3 ns |   224.11 ns |  12.28 ns |  1.65 |    0.01 |    3 | 0.0324 |     280 B |        1.59 |
-
+```
 <br/>
 
 ## Complex object:
@@ -201,7 +214,7 @@ object:
 <br/>
 
 SERIALIZATION:
-
+```
 |                Method |      Mean |     Error |    StdDev | Ratio | RatioSD | Rank |   Gen0 |   Gen1 | Allocated | Alloc Ratio |
 |---------------------- |----------:|----------:|----------:|------:|--------:|-----:|-------:|-------:|----------:|------------:|
 |            Jil_String |  9.812 μs | 2.8459 μs | 0.1560 μs |  1.16 |    0.01 |    3 | 2.7008 | 0.1068 |   22.1 KB |        5.48 |
@@ -216,11 +229,11 @@ SERIALIZATION:
 |        SpanJson_Bytes |  8.460 μs | 0.7523 μs | 0.0412 μs |  1.00 |    0.00 |    1 | 0.4883 |      - |   4.03 KB |        1.00 |
 |  SystemTextJson_Bytes | 15.605 μs | 0.8849 μs | 0.0485 μs |  1.84 |    0.01 |    9 | 0.5798 |      - |   4.79 KB |        1.19 |
 |        Utf8Json_Bytes | 11.687 μs | 1.1750 μs | 0.0644 μs |  1.38 |    0.01 |    5 | 0.7324 |      - |   5.98 KB |        1.48 |
-
+```
 <br/>
 
 DESERIALIZATION:
-
+```
 |                Method |     Mean |     Error |   StdDev | Ratio | RatioSD | Rank |   Gen0 |   Gen1 | Allocated | Alloc Ratio |
 |---------------------- |---------:|----------:|---------:|------:|--------:|-----:|-------:|-------:|----------:|------------:|
 |            Jil_String | 21.58 μs |  1.104 μs | 0.061 μs |  1.63 |    0.02 |    3 | 1.0986 |      - |   9.04 KB |        3.32 |
@@ -235,7 +248,7 @@ DESERIALIZATION:
 |        SpanJson_Bytes | 13.27 μs |  2.194 μs | 0.120 μs |  1.00 |    0.00 |    1 | 0.3204 |      - |   2.72 KB |        1.00 |
 |  SystemTextJson_Bytes | 30.02 μs | 23.686 μs | 1.298 μs |  2.26 |    0.12 |    8 | 0.7324 |      - |   6.02 KB |        2.21 |
 |        Utf8Json_Bytes | 22.10 μs |  5.922 μs | 0.325 μs |  1.66 |    0.03 |    4 | 0.6409 |      - |   5.33 KB |        1.96 |
-
+```
 <br/>
 
 ## Contribution
