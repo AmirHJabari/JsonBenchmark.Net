@@ -6,14 +6,14 @@ Benchmark for de/serializing different objects with multiple tools:
 * `Utf8Json`
 * `System.Text.Json`
 
+Objects:
+* [SuperSimple](https://github.com/AmirHJabari/JsonBenchmark.Net#super-simple-object)
+* [Simple](https://github.com/AmirHJabari/JsonBenchmark.Net#simple-object)
+* [Complex](https://github.com/AmirHJabari/JsonBenchmark.Net#complex-object)
+
 Definitely in different object types and different scenarios the result can vary but in general `SpanJson` wins both in execution time (faster) as well as memory allocation (less allocation).
 
 **Note:** System.Text.Json source generator tested as well but there were not big enhancements in these 3 cases (SuperSimple/Simple/Complex objects) so I removed it.
-
-<br/>
-
-___
-___
 
 <br/>
 
@@ -64,11 +64,6 @@ DESERIALIZATION:
 |        SpanJson_Bytes |    92.71 ns |  10.329 ns |  0.566 ns |  1.00 |    0.00 |    1 | 0.0105 |      - |      88 B |        1.00 |
 |  SystemTextJson_Bytes |   274.26 ns | 404.983 ns | 22.198 ns |  2.96 |    0.25 |    9 | 0.0105 |      - |      88 B |        1.00 |
 |        Utf8Json_Bytes |   129.51 ns |  19.648 ns |  1.077 ns |  1.40 |    0.00 |    4 | 0.0095 |      - |      80 B |        0.91 |
-
-<br/>
-
-___
-___
 
 <br/>
 
@@ -133,11 +128,6 @@ DESERIALIZATION:
 |        SpanJson_Bytes |   909.0 ns |    50.73 ns |   2.78 ns |  1.00 |    0.00 |    1 | 0.0210 |     176 B |        1.00 |
 |  SystemTextJson_Bytes | 1,936.0 ns | 2,170.74 ns | 118.99 ns |  2.13 |    0.13 |    7 | 0.0210 |     176 B |        1.00 |
 |        Utf8Json_Bytes | 1,504.3 ns |   224.11 ns |  12.28 ns |  1.65 |    0.01 |    3 | 0.0324 |     280 B |        1.59 |
-
-<br/>
-
-___
-___
 
 <br/>
 
@@ -245,13 +235,6 @@ DESERIALIZATION:
 |        SpanJson_Bytes | 13.27 μs |  2.194 μs | 0.120 μs |  1.00 |    0.00 |    1 | 0.3204 |      - |   2.72 KB |        1.00 |
 |  SystemTextJson_Bytes | 30.02 μs | 23.686 μs | 1.298 μs |  2.26 |    0.12 |    8 | 0.7324 |      - |   6.02 KB |        2.21 |
 |        Utf8Json_Bytes | 22.10 μs |  5.922 μs | 0.325 μs |  1.66 |    0.03 |    4 | 0.6409 |      - |   5.33 KB |        1.96 |
-
-
-
-<br/>
-
-___
-___
 
 <br/>
 
