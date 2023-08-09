@@ -42,7 +42,7 @@ public class BenchmarkConfig : ManualConfig
 
         var job = Job.ShortRun
             .WithLaunchCount(1)
-            .WithWarmupCount(2)
+            .WithWarmupCount(3)
             .WithRuntime(CoreRuntime.Core70)
             .WithJit(Jit.RyuJit)
             .WithPlatform(Platform.X64);

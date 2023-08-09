@@ -30,9 +30,9 @@ public class SimpleClass
     public bool True { get; set; }
 
     public DateTime DateTime { get; set; }
-    public SimpleClass? Nullable { get; set; }
+    public object Nullable { get; set; }
 
-    public static SimpleClass Create(Rand rand = null)
+    public static SimpleClass Create(Rand rand = null!)
     {
         rand ??= new Rand(28115235);
 
@@ -62,7 +62,7 @@ public class SimpleClass
                 Char = rand.Char(),
 
                 DateTime = DateTime.UtcNow,
-                Nullable = null,
+                Nullable = null!,
             };
         }
     }

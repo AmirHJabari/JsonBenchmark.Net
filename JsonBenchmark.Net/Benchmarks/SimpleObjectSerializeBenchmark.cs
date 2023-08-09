@@ -9,7 +9,6 @@ namespace JsonBenchmark.Net.Benchmarks;
 public class SimpleObjectSerializeBenchmark
 {
     static SimpleClass obj;
-    static Utf8Json.IJsonFormatterResolver jsonresolver = Utf8Json.Resolvers.StandardResolver.Default;
     static Encoding utf8 = Encoding.UTF8;
 
     static NetJSON.NetJSONSettings njSettings = new()
@@ -66,7 +65,7 @@ public class SimpleObjectSerializeBenchmark
     [Benchmark]
     public string Utf8Json_String()
     {
-        return Utf8Json.JsonSerializer.ToJsonString(obj, jsonresolver);
+        return Utf8Json.JsonSerializer.ToJsonString(obj);
     }
 
     #endregion
@@ -91,7 +90,7 @@ public class SimpleObjectSerializeBenchmark
         return utf8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(obj));
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public byte[] SpanJson_Bytes()
     {
         return SpanJson.JsonSerializer.NonGeneric.Utf8.Serialize(obj);
@@ -112,7 +111,7 @@ public class SimpleObjectSerializeBenchmark
     [Benchmark]
     public byte[] Utf8Json_Bytes()
     {
-        return Utf8Json.JsonSerializer.Serialize(obj, jsonresolver);
+        return Utf8Json.JsonSerializer.Serialize(obj);
     }
     #endregion
 }

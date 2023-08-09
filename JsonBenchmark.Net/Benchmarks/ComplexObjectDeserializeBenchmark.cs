@@ -11,7 +11,6 @@ public class ComplexObjectDeserializeBenchmark
 {
     static string json;
     static byte[] jsonBytes;
-    static Utf8Json.IJsonFormatterResolver jsonresolver = Utf8Json.Resolvers.StandardResolver.Default;
     static Encoding utf8 = Encoding.UTF8;
     static NetJSON.NetJSONSettings njSettings = new()
     {
@@ -31,7 +30,7 @@ public class ComplexObjectDeserializeBenchmark
     public void GlobalSetup()
     {
         var obj = ComplexClass.Create();
-        jsonBytes = Utf8Json.JsonSerializer.Serialize(obj, jsonresolver);
+        jsonBytes = Utf8Json.JsonSerializer.Serialize(obj);
         json = utf8.GetString(jsonBytes);
     }
 
@@ -76,7 +75,7 @@ public class ComplexObjectDeserializeBenchmark
     [Benchmark]
     public ComplexClass Utf8Json_String()
     {
-        return Utf8Json.JsonSerializer.Deserialize<ComplexClass>(json, jsonresolver);
+        return Utf8Json.JsonSerializer.Deserialize<ComplexClass>(json);
     }
 
     #endregion
@@ -101,7 +100,7 @@ public class ComplexObjectDeserializeBenchmark
         return Newtonsoft.Json.JsonConvert.DeserializeObject<ComplexClass>(utf8.GetString(jsonBytes));
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public ComplexClass SpanJson_Bytes()
     {
         return SpanJson.JsonSerializer.Generic.Utf8.Deserialize<ComplexClass>(jsonBytes);
@@ -122,7 +121,7 @@ public class ComplexObjectDeserializeBenchmark
     [Benchmark]
     public ComplexClass Utf8Json_Bytes()
     {
-        return Utf8Json.JsonSerializer.Deserialize<ComplexClass>(jsonBytes, jsonresolver);
+        return Utf8Json.JsonSerializer.Deserialize<ComplexClass>(jsonBytes);
     }
 
     #endregion

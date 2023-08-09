@@ -56,10 +56,10 @@ public class ComplexClass
     public bool[] ArrTrue { get; set; }
 
     public DateTime DateTime { get; set; }
-    public SimpleClass? Nullable { get; set; }
+    public object Nullable { get; set; }
 
     public DateTime[] ArrDateTime { get; set; }
-    public SimpleClass[] ArrNullable { get; set; }
+    public object[] ArrNullable { get; set; }
 
     public SimpleClass NestedClass { get; set; }
     public SimpleClass[] ArrNestedClass { get; set; }
@@ -123,8 +123,8 @@ public class ComplexClass
 
                 DateTime = DateTime.UtcNow,
                 ArrDateTime = Arr(5, () => DateTime.UtcNow),
-                Nullable = null,
-                ArrNullable = Arr<SimpleClass>(5, () => null),
+                Nullable = null!,
+                ArrNullable = Arr<SimpleClass>(5, () => null!),
 
                 NestedClass = SimpleClass.Create(rand),
                 ArrNestedClass = Arr(5, () => SimpleClass.Create(rand))

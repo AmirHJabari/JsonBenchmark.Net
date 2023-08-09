@@ -10,7 +10,6 @@ public class SimpleObjectDeserializeBenchmark
 {
     static string json;
     static byte[] jsonBytes;
-    static Utf8Json.IJsonFormatterResolver jsonresolver = Utf8Json.Resolvers.StandardResolver.Default;
     static Encoding utf8 = Encoding.UTF8;
     static NetJSON.NetJSONSettings njSettings = new()
     {
@@ -66,15 +65,9 @@ public class SimpleObjectDeserializeBenchmark
     }
 
     [Benchmark]
-    public SimpleClass JsonSrcGen_String()
-    {
-        return Jil.JSON.Deserialize<SimpleClass>(json, jilOptions);
-    }
-
-    [Benchmark]
     public SimpleClass Utf8Json_String()
     {
-        return Utf8Json.JsonSerializer.Deserialize<SimpleClass>(json, jsonresolver);
+        return Utf8Json.JsonSerializer.Deserialize<SimpleClass>(json);
     }
 
     #endregion
@@ -99,7 +92,7 @@ public class SimpleObjectDeserializeBenchmark
         return Newtonsoft.Json.JsonConvert.DeserializeObject<SimpleClass>(utf8.GetString(jsonBytes));
     }
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public SimpleClass SpanJson_Bytes()
     {
         return SpanJson.JsonSerializer.Generic.Utf8.Deserialize<SimpleClass>(jsonBytes);
@@ -120,7 +113,7 @@ public class SimpleObjectDeserializeBenchmark
     [Benchmark]
     public SimpleClass Utf8Json_Bytes()
     {
-        return Utf8Json.JsonSerializer.Deserialize<SimpleClass>(jsonBytes, jsonresolver);
+        return Utf8Json.JsonSerializer.Deserialize<SimpleClass>(jsonBytes);
     }
 
     #endregion
