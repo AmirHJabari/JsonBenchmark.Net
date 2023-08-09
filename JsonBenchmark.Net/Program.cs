@@ -14,6 +14,8 @@ var benchmarks = new BenchmarkSwitcher(new[]
     typeof(ComplexObjectSerializeBenchmark),
     typeof(SimpleObjectDeserializeBenchmark),
     typeof(ComplexObjectDeserializeBenchmark),
+    typeof(SuperSimpleObjectDeserializeBenchmark),
+    typeof(SuperSimpleObjectSerializeBenchmark)
 });
 
 #if DEBUG
@@ -46,7 +48,7 @@ public class BenchmarkConfig : ManualConfig
             .WithRuntime(CoreRuntime.Core70)
             .WithJit(Jit.RyuJit)
             .WithPlatform(Platform.X64);
-        
+
         AddJob(job);
     }
 }

@@ -9,6 +9,7 @@ namespace JsonBenchmark.Net.Services;
 /// </summary>
 [JsonSerializable(typeof(SimpleClass))]
 [JsonSerializable(typeof(ComplexClass))]
+[JsonSerializable(typeof(SuperSimpleClass))]
 public partial class JsonSourceGen : JsonSerializerContext
 {
 
